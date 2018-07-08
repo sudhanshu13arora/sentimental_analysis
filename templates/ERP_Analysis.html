@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+{% load staticfiles %}
+<head>
+    <link href="{% static "ERP_Analysis.css" %}" type="text/css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<style>
+    .footer .glyphicon {
+        font-size: 20px;
+        margin-bottom: 20px;
+        color: #f4511e;
+    }
+
+    .active {
+        text-color: white;
+    }
+
+    .container-fluid {
+        margin-left: 0px;
+        margin-right: 0px;
+
+    }
+</style>
+<body style="background-color:#F5F5F5" ;>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class=" navbar-header">
+            <a class="navbar-brand" href="#">Mess Food Reviews</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a href="{% url "view_reviews" %}">View Review</a></li>
+            <li><a href="#" class="active">Review Analysis</a></li>
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">@{{ user.username }}'s admin console</a></li>
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+        </ul>
+    </div>
+</nav>
+
+<img src="{% static "ReviewAnalysis.jpg" %}" width="1350dp">
+<div class="">
+    <div class="jumbotron">
+        <ul class="pager ">
+            <li class="previous" style="text-align: center;color:black;"><h2>You have <span
+                    style="font-size: 50px"><strong>{{ total_number }}</strong></span> reviews</h2></li>
+            <li class="next" style=" text-align: center;color:black;"><h2>with a <span
+                    style="font-size: 50px"><strong>{{ average_score }}</strong></span> average sentiment score</h2>
+            </li>
+            <li class="next" style=" text-align: center;color:black;"><h2>which means {% if average_score >= 4 %}
+                <span style="font-size: 50px; color: #1B5E20"><strong>customers love you!</strong></span>{% elif average_score < 4 and average_score >= 3 %}
+                <span style="font-size: 50px; color: #757575"><strong>you are on the right track.</strong></span>{% elif average_score < 3 and average_score >= 2 %}
+                <span style="font-size: 50px; color: #E65100"><strong>you can do better.</strong></span>{% elif average_score < 2 and average_score >= 1 %}
+                <span style="font-size: 50px; color: #B71C1C"><strong>you need to improve.</strong></span>{% endif %}
+            </h2></li>
+        </ul>
+    </div>
+</div>
+<div class="container-fluid">
+    <img src="{% static "header1.png" %}" width="1320dp">
+</div>
+<div class="row row-5 bg-5">
+    <div class="col-lg-6"><h2>Average Sentiment Score vs the past 7 days</h2>
+        <h4>This graph shows the trends of the average sentiment score for the past 7 days. As you may remember, the
+            higher the score, the better. So, this graph will help you judge what has been the daily performance of your
+            food provision, so that you can know where you were lacking and can make changes accordingly. The sentiment score
+            gives a good enough indication of the sentiment of the reviewer, the average will tell what has been the average
+            sentiment of the review on a day by day basis
+        </h4>
+    </div>
+    <div align="center" class="col-lg-6"><img src="/media/one.png" class="img-thumbnail" alt="Cinque Terre"></div>
+</div>
+<div class="container-fluid">
+    <img src="{% static "header2.png" %}" width="1320dp">
+</div>
+<div class="row row-5 bg-7">
+    <div class="col-lg-6"><img src="/media/Breakfast.png" class="img-thumbnail" alt="Cinque Terre"></div>
+    <div class="col-lg-6"><img src="/media/Lunch.png" class="img-thumbnail" alt="Cinque Terre"></div>
+</div>
+<div class="row row-5 bg-9">
+    <div align="center" class="col-lg-12"><h2>Breakfast and Lunch vs the past 7 days</h2>
+        <h4>This graph shows the trends of the average sentiment score for Breakfast and Lunch for the past 7 days. As you may remember, the
+            higher the score, the better. So, this graph will help you judge what has been the daily performance of your
+            breakfast and lunch provision, so that you can know where you were lacking and can make changes accordingly. The sentiment score
+            gives a good enough indication of the sentiment of the reviewer, the average will tell what has been the average
+            sentiment of the review for breakfast and lunch respectively on a day by day basis
+        </h4>
+    </div>
+</div>
+<div class="well well-lg"><img src="{% static "header33.png" %}"></div>
+<div class="row row-5 bg-8">
+    <div class="col-lg-6"><img src="/media/Snacks.png" class="img-thumbnail" alt="Cinque Terre"></div>
+    <div class="col-lg-6"><img src="/media/Dinner.png" class="img-thumbnail" alt="Cinque Terre"></div>
+</div>
+<div class="row row-5 bg-9">
+    <div align="center" class="col-lg-12"><h2>Snacks and Dinner vs the past 7 days.</h2>
+        <h4>This graph shows the trends of the average sentiment score for Snacks and Dinner for the past 7 days. As you may remember, the
+            higher the score, the better. So, this graph will help you judge what has been the daily performance of your
+            snacks and dinner provision, so that you can know where you were lacking and can make changes accordingly. The sentiment score
+            gives a good enough indication of the sentiment of the reviewer, the average will tell what has been the average
+            sentiment of the review for snacks and dinner respectively on a day by day basis
+        </h4>
+    </div>
+</div>
+<div class="well well-lg"><img src="{% static "header4.png" %}"></div>
+<div class="row row-5 bg-10">
+    <div class="col-lg-6"><img src="/media/Pie.png" class="img-thumbnail" alt="Cinque Terre"></div>
+    <div align="center" class="col-lg-6"><h2>Various Sentiments Pie Chart</h2>
+        <h4>The pie chart depicts the percentage of each sentiment score in all the reviews. There are four types of sentiments derived from the sentiment score,
+            Negative (sentiment score from 1 to 2), Not Bad (sentiment score from 2 to 3), Neutral (sentiment score from 3 to 4),
+            Positive (from 4 to 5). This pie chart helps to determine the proportion of each sentiment in each of the reviews,
+            so that you can judge what sentiment dominates the reviews that you get. We hope you find this information useful!
+        </h4>
+    </div>
+</div>
+
+
+<div id="backgroundImage">
+    <div class="main">
+    </div>
+</div>
+<footer class="container-fluid  bg-4 text-center">
+    <p>Website made from love by Yash, Kartiki, Abhinav, Raghav and Sparsh.</p>
+</footer>
+
+</body>
+</html>	

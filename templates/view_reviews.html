@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View Reviews</title>
+</head>
+<body>
+<a href="{% url 'logout' %}">Logout</a>
+<br>
+<ul>
+    {% for i in reviews %}
+        <li>{{ i.student.user.username }} {{ i.date_time }} : {{ i.review }}, {{ i.rating }}
+            {% if i.sentiment == '5' %}
+                positive
+            {% elif i.sentiment == '3' %}
+                neutral
+            {% elif i.sentiment == '1' %}
+                negative
+            {% endif %}</li>
+    {% endfor %}
+</ul>
+</body>
+</html>

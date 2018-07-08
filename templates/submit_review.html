@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Give reviews</title>
+</head>
+<body>
+    <a href="{% url 'logout' %}">Logout</a>
+    <a href="/reviews/self/{{ user.username }}">Past</a>
+    <br>
+    {% if error %}
+        <h3>Error!</h3><br>
+    {% elif submitted %}
+        <h3>Submitted</h3><br>
+    {%  endif %}
+    <form action="." method="post" id="review_form">
+        {% csrf_token %}
+        <label for="user_review">Review: </label><input type="text" name="review" id ="user_review"><br>
+        {% for m in meals %}
+            <input type="radio" id="Meal{{ forloop.counter }}" value="{{ m.id }}" name="meal">
+            <label for="Meal{{ forloop.counter }}">{{ m.meal }}</label><br>
+        {% endfor %}
+        <label for="user_rating">Rating: </label><input type="number" name= "rating" id="user_rating"><br>
+        <input type="submit" title="submit_review">
+    </form>
+<br>
+<h3>{{ user.student.regno }}</h3> <h3>{{ user.username }}</h3> <h3>{{ user.student.user.username }} </h3>
+<br>
+{% for other in other_reviews %}
+    <p>{{ other.student.user.username }} , {{ other.meal.meal }}, {{ other.date_time }} : {{ other.review }}</p>
+{% endfor %}
+</body>
+</html>

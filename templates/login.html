@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+<br>
+<form action="." method="POST" id="login_form">
+    {% csrf_token %}
+    <label for="user_name">Username: </label><input type="text" name="username" id ="user_name" ><br>
+    <label for="pass_word">Password: </label><input type="password" name="password" id ="pass_word"><br>
+    <input type="submit" title="Login" name="Login">
+</form>
+<br>
+<a href="{% url 'signup' %}">Or if you don't have an account, click here</a>
+</body>
+</html>

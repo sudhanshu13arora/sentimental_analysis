@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <title>Past Reviews</title>
+    <style>
+        .container {
+            width: 350px;
+            height: 420px;
+            margin-top: 100px;
+            margin-left: 500px;
+            padding: 5px;
+
+        }
+
+        h2 {
+            color: black;
+        }
+
+        p {
+            color: black;
+        }
+
+        .checked {
+            color: white;
+        }
+
+        .row {
+            margin-top: 0px;
+        }
+
+        .w3-container {
+            background-color: white;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            transtion: 0.3;
+            border-radius: 5px;
+        }
+
+        .bg-2 {
+            margin-bottom: 25px;
+            border-radius: 5px;
+        }
+
+        body {
+            background-color: #E0E0E0;
+        }
+
+        .container2 {
+
+            padding-top: 10px;
+            background-color:;
+            height: 600px;
+            overflow: scroll;
+
+        }
+
+        .w3-2017-navy-peony {
+            color: #fff;
+            background-color: #0D1C23
+        }
+        .bg-4 {
+    background-color: #2f2f2f;
+    color: #ffffff;
+	margin-top:50px;
+	padding-top: 50px;
+    padding-bottom: 30px;
+}
+    </style>
+</head>
+<body>
+<nav class="navbar w3-2017-navy-peony">
+    <div class="container-fluid">
+        <div class=" navbar-header">
+            <a class="navbar-brand" href="#">Mess Food Reviews</a>
+        </div>
+        <ul class="nav navbar-nav">
+            {% if not user.is_staff %}
+                <li><a href="{% url "submit_review" %}">Give a Review</a></li>
+                <li><a href="#" class="checked">Your Reviews</a></li>
+            {% endif %}
+
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="/reviews/profile_view/{{ user.username }}">Welcome, @{{ user.username }}</a></li>
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="row">
+    <div class="col-lg-4"><img src="{% static "ViewYourReviews..jpg" %}" class="img-rounded"
+                               style="width:450px; height:600px; "></div>
+    <div class="col-lg-8">
+        <div class="container2 ">
+            <!---Starting of division----->
+            {% for comment in comments %}
+                <div class="w3-container w3-2017-navy-peony">
+                    <h5 style="text-align:left;">{{ comment.date_time }}
+                        {% if comment.rating == 1 %}
+                            <span style="float:right;" class="fa fa-star checked"></span>
+                        {% elif comment.rating == 2 %}
+                            <span style="float:right;" class="fa fa-star checked"></span>
+                            <span style="float:right;" class="fa fa-star checked"></span>
+                        {% elif comment.rating == 3 %}
+                            <span style="float:right;" class="fa fa-star checked"></span>
+                            <span style="float:right;" class="fa fa-star checked"></span>
+                            <span style="float:right;" class="fa fa-star checked"></span>
+                        {% elif comment.rating == 4 %}
+                            <span style="float:right;" class="fa fa-star checked"></span>
+                            <span style="float:right;" class="fa fa-star checked"></span>
+                            <span style="float:right;" class="fa fa-star checked"></span>
+                            <span style="float:right;" class="fa fa-star checked"></span>
+                        {% elif comment.rating == 5 %}
+                            <span style="float:right;" class="fa fa-star checked"></span>
+                            <span style="float:right;" class="fa fa-star checked"></span>
+                            <span style="float:right;" class="fa fa-star checked"></span>
+                            <span style="float:right;" class="fa fa-star checked"></span>
+                            <span style="float:right;" class="fa fa-star checked"></span>
+                        {% endif %}
+                    </h5>
+                </div>
+                <div class="w3-container bg-2 ">
+                    <h3 style="color: #0D1C23">{{ comment.meal.meal }}</h3>
+                    <p style="color: #0D1C23">{{ comment.review }}</p>
+                </div>
+                <!------Ending of Division----->
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+	

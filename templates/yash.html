@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html xmlns:font-size="http://www.w3.org/1999/xhtml">
+<head>
+    {% load staticfiles %}
+    <title>Give Feedback</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static "yash.css" %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <script>
+        function atLeastOneRadio() {
+            console.log("radio called");
+            var radios = document.getElementsByTagName('input');
+            var value;
+            var flag = 0;
+            for (var i = 0; i < radios.length; i++) {
+                if (radios[i].type === 'radio' && radios[i].checked) {
+                    // get value, set checked flag or do whatever you need to
+                    value = radios[i].value;
+                    flag = 1;
+                    return true;
+                }
+
+            }
+            if (flag === 0) {
+                alert("Please give a rating");
+                return false;
+            }
+
+        }
+    </script>
+</head>
+<body>
+
+<nav class="navbar w3-2017-navy-peony">
+    <div class="container-fluid">
+        <div class=" navbar-header">
+            <a class="navbar-brand" style="color: snow" href="#">Mess Food Reviews</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a href="{% url "submit_review" %}" class="checked">Give a Review</a></li>
+            <li><a href="/reviews/self/{{ user.username }}">Your Reviews</a></li>
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="/reviews/profile_view/{{ user.username }}">Welcome, @{{ user.username }}</a></li>
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+        </ul>
+    </div>
+</nav>
+<div id="image">
+    <div>
+        <img src="{% static "WriteAReview.jpg" %}"
+             alt="HTML5 Icon" width="500" height="470">
+    </div>
+</div>
+
+<div id="menu">
+    <img src="{% static "MessMenu.jpg" %}">
+</div>
+
+<div id="contact-form">
+
+    <div>
+        <h2>Feedback Form</h2>
+
+        <h3>Feed Us!</h3>
+    </div>
+    <form method="POST" action="." class="form-horizontal" onsubmit="return atLeastOneRadio()">
+        {% csrf_token %}
+
+        <div>
+            <label for="MEAL">
+                <span class="required">Meal</span>
+                <select id="meal" name="meal" tabindex="{{ meals|length }}">
+                    {% for m in meals %}
+                        <option value="{{ m.id }}" id="Meal{{ forloop.counter }}" name="meal">{{ m.meal }}</option>
+                    {% endfor %}
+                </select>
+            </label>
+        </div>
+        <div>
+            <label for="message">
+                <span class="required">Feedback</span>
+                <textarea id="message" name="review" placeholder="Please write your feedback here." tabindex="5"
+                          required="required"></textarea>
+            </label>
+        </div>
+        <div>
+            <span class="required" style="font-size: 15px;"><strong>Rate us!</strong></span>
+            </br>
+            <fieldset class="rating">
+                <input type="radio" id="star5" name="rating" value="5"/><label class="full" for="star5"
+                                                                               title="Awesome - 5 stars"></label>
+                <input type="radio" id="star4" name="rating" value="4"/><label class="full" for="star4"
+                                                                               title="Pretty good - 4 stars"></label>
+                <input type="radio" id="star3" name="rating" value="3"/><label class="full" for="star3"
+                                                                               title="Meh - 3 stars"></label>
+                <input type="radio" id="star2" name="rating" value="2"/><label class="full" for="star2"
+                                                                               title="Kinda bad - 2 stars"></label>
+                <input type="radio" id="star1" name="rating" value="1"/><label class="full" for="star1"
+                                                                               title="Sucks big time - 1 star"></label>
+                </span>
+            </fieldset>
+            <button name="submit" type="submit" id="submit" class="btn btn-danger btn-lg btn-block">Submit</button>
+        </div>
+
+    </form>
+
+</div>
+<div id="feedback-display" class="sticky">
+
+    <div>
+        <h1 style="color:black;">Have a look at what others have to say!</h1>
+
+    </div>
+    </br>
+    {% for other in other_reviews %}
+        <div id="fid">
+            <div class="w3-container w3-2017-navy-peony bg-2">
+                {% if other.student.user.username == user.username %}
+                    <h6 style="text-align:left;">You at {{ other.date_time }}
+                {% else %}
+                    <h6 style="text-align:left;"><a href="/reviews/profile_view/{{ other.student.user.username }}">@{{ other.student.user.username }}</a> at {{ other.date_time }}
+                {% endif %}
+
+                <span style="float:right; letter-spacing: 4px;" class="fa fa-star checked"></span>
+                <span style="float:right; letter-spacing: 3px;">{{ other.rating }}</span>
+                </h6>
+            </div>
+            <div class="w3-container ">
+
+                <div class="row">
+                    <div class="column left" style="background-color:#0D1C23;">
+
+                        <p class="a" align=center style="color: #fff;"> {{ other.meal.meal }} </p>
+                    </div>
+                    <div class="column right" style="background-color:#F5F5F5;">
+
+                        <p class="b" align=center style="color:black;" font-size:>{{ other.review }}</p>
+                    </div>
+                </div>
+            </div>
+            </br>
+
+
+        </div>
+        <br>
+
+    {% endfor %}
+
+<br>
+
+</div>
+
+{% if messages %}
+    <script>
+        {% for message in messages %}
+            alert("{{ message }}");
+        {% endfor %}
+    </script>
+{% endif %}
+
+</body>
+</html>

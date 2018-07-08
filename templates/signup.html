@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load staticfiles %}
+    <title>SIGNUP FORM</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static "signup.css" %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="file:///C:/Users/Kartiki%20Bhargava/Desktop/New%20folder/js/bootstrap.min.js"></script>
+    <script src=""></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+<body>
+<div id="heading">
+    <h1>Sign Up</h1>
+</div>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class=" navbar-header">
+            <a class="navbar-brand" href="#">Mess Food Reviews</a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="{% url "login" %}">Login</a></li>
+        </ul>
+    </div>
+</nav>
+
+<form method="post" action="." class="form-horizontal" onsubmit="return confirm('Are sure that all the information provided is correct?');">
+
+    {% csrf_token %}
+    <div id="signup1">
+
+        <div>
+            <label for="id_first_name">First name:</label>
+            <input type="text" name="first_name" maxlength="30" required id="id_first_name" placeholder="First Name">
+
+        </div>
+
+        <div>
+            <label for="id_last_name">Last name:</label>
+            <input type="text" name="last_name" maxlength="30" required id="id_last_name" placeholder="Last Name">
+        </div>
+
+        <div>
+            <label for="id_email">Email address:</label>
+            <input type="email" required name="email" maxlength="254" id="id_email" placeholder="Enter Email">
+
+        </div>
+        </br>
+        <div>
+            <label for="id_password">Password:</label>
+            <input type="password" name="password" maxlength="128" minlength="8" required id="id_password"
+                   placeholder="Enter Password">
+             <span class="helptext">Should be minimum 8 characters</span>
+        </div>
+        <br>
+        <div>
+            <label for="id_confirm_password">Password Confirmation:</label>
+            <input type="password" name="confirm_password" required id="id_confirm_password"/>
+            <span class="helptext">Enter the same password as before, for verification.</span>
+        </div>
+    </div>
+    <div id="signup2">
+        <div>
+            <label for="id_username">Username:</label> <input type="text" name="username" minlength="5" maxlength="150" required
+                                                              id="id_username"/> <span class="helptext">Required. 5 characters or more. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</span>
+        </div>
+        </br>
+        <div>
+            <label for="id_dob">Date of Birth:</label>
+            <input type="text" name="dob" required id="id_dob"/> <span class="helptext">Enter your date of birth in the format YYYY-MM-DD</span>
+
+        </div>
+        </br>
+        <div>
+            <label for="id_regno">Registration Number:</label>
+            <input type="text" name="regno" maxlength="20" minlength="7" required id="id_regno"/>
+            <span class="helptext">Enter your college registration number</span>
+        </div>
+        </br>
+        <div>
+            <a href="/reviews/login/" style="color:white">Have an account? Login</a>
+        </div>
+        </br>
+        <div>
+            <button name="submit" type="submit" id="submit" class="btn btn-danger btn-lg btn-block">Signup</button>
+        </div>
+
+
+    </div>
+
+
+</form>
+
+{% if userform.errors %}
+    {% for field in userform %}
+        {% for error in field.errors %}
+                <script>alert("{{ error }}")</script>
+        {% endfor %}
+    {% endfor %}
+    {% for error in userform.non_field_errors %}
+        <script>alert("{{ error }}")</script>
+    {% endfor %}
+{% endif %}
+
+
+{% if studentform.errors %}
+    {% for field in studentform %}
+        {% for error in field.errors %}
+                <script>alert("{{ error }}")</script>
+        {% endfor %}
+    {% endfor %}
+    {% for error in studentform.non_field_errors %}
+        <script>alert("{{ error }}")</script>
+    {% endfor %}
+{% endif %}
+
+</body>
+</html>

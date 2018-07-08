@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:background-color="http://www.w3.org/1999/xhtml">
+<head>
+    {% load staticfiles %}
+    <link href="{% static "adminreviews.css" %}" type="text/css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <title>Reviews</title>
+    <style>
+        .green_checked {
+            color: #172B2C;
+        }
+
+        .green_nav {
+            background-color: #172B2C;
+            color: #fff;
+        }
+    </style>
+</head>
+<body style="background-color:#E0E0E0" ;>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class=" navbar-header">
+            <a class="navbar-brand" href="#">Mess Food Reviews</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a href="#" class="active">View Review</a></li>
+            <li><a href="{% url "analysis" %}" class="active">Review Analysis</a></li>
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">@{{ user.username }}'s admin console</a></li>
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+        </ul>
+    </div>
+</nav>
+
+<img style="margin-top: 50px " src="{% static "Customer Review.jpg" %}">
+
+
+{% for r in reviews %}
+    <div class="row">
+    <div class="col-lg-12">
+    {% if r.score >= 4 %}
+        <div class="w3-container w3-green-dark">
+    {% elif r.score < 4 and r.score >= 3 %}
+        <div class="w3-container w3-dark-grey">
+    {% elif r.score >= 2 and r.score < 3 %}
+        <div class="w3-container w3-orange-dark">
+    {% elif r.score >= 1 and r.score < 2 %}
+        <div class="w3-container w3-red-dark">
+    {% endif %}
+
+<h4 style="text-align:left;"><a style="color: #fff;"
+                                href="/reviews/profile_view/{{ r.student.user.username }}">@{{ r.student.user.username }}</a>
+    <span style="float:right;"> {{ r.date_time }} </span></h4>
+</div>
+<div class="w3-container ">
+    <div class="col-lg-2" style="text-align:center;"><br>
+        <h3>{{ r.meal.meal }}</h3></div>
+    <div class="col-lg-7" style="text-align:left;"><br>
+        <h4>{{ r.review }}</h4><br>
+    </div>
+    <div class="col-lg-3  bg-6" style="text-align:center;">
+        <h4 style="text-align:center;">{% if r.sentiment == '5' %}
+            <p style="color: #1B5E20">Positive</p>
+        {% elif r.sentiment == '3' %}
+            <p style="color: black">Neutral</p>
+        {% else %}
+            <p style="color: #B71C1C">Negative</p>
+        {% endif %}
+            {% if r.rating == 1 %}
+                <span style="" class="fa fa-star green_checked"></span>
+            {% elif r.rating == 2 %}
+                <span style="" class="fa fa-star green_checked"></span>
+                <span style="" class="fa fa-star green_checked"></span>
+            {% elif r.rating == 3 %}
+                <span style="" class="fa fa-star green_checked"></span>
+                <span style="" class="fa fa-star green_checked"></span>
+                <span style="" class="fa fa-star green_checked"></span>
+            {% elif r.rating == 4 %}
+                <span style="" class="fa fa-star green_checked"></span>
+                <span style="" class="fa fa-star green_checked"></span>
+                <span style="" class="fa fa-star green_checked"></span>
+                <span style="" class="fa fa-star green_checked"></span>
+            {% elif r.rating == 5 %}
+                <span style="" class="fa fa-star green_checked"></span>
+                <span style="" class="fa fa-star green_checked"></span>
+                <span style="" class="fa fa-star green_checked"></span>
+                <span style="" class="fa fa-star green_checked"></span>
+                <span style="" class="fa fa-star green_checked"></span>
+            {% endif %}</h4>
+        {% if r.score >= 4 %}
+            <h4 style="text-align:center;white-space: nowrap; color: #1B5E20">Sentiment Score: {{ r.score }}</h4>
+        {% elif r.score < 4 and r.score >= 3 %}
+            <h4 style="text-align:center;white-space: nowrap;">Sentiment Score: {{ r.score }}</h4>
+            {% elif r.score >= 2 and r.score < 3  %}
+            <h4 style="text-align:center;white-space: nowrap; color: #E65100">Sentiment Score: {{ r.score }}</h4>
+        {% else %}
+            <h4 style="text-align:center;white-space: nowrap; color: #B71C1C">Sentiment Score: {{ r.score }}</h4>
+        {% endif %}
+
+    </div>
+</div>
+</div>
+</div>
+{% endfor %}
+
+
+</body>
+</html>

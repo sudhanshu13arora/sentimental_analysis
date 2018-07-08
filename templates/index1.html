@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+{% load staticfiles %}
+<head>
+    <link href="{% static "index1.css" %}" type="text/css" rel="stylesheet"/>
+    <link href="{% static "index1.css" %}" type="text/css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="{% static "reqd.js" %}"></script>
+</head>
+<body style="background-color:#EEEEEE">
+
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class=" navbar-header">
+            <a class="navbar-brand" href="#">Mess Food Reviews</a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="{% url "signup" %}">Sign Up</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="row">
+    <div class="col-lg-6"><img src="{% static "Welcome.jpg" %} " style="width:700px; height:600px;"></div>
+      <div class="col-lg-6">
+        <div class="form_div" ><br><br>
+            <h1 class="form_label2">Log In</h1><br>
+            <h5 class="form_label1">Enter your credentials to log in</h5>
+            <form method="POST" action="." id="login_form" name="login_form" onsubmit="return require()">
+                {% csrf_token %}
+                <p><input type="text" placeholder=" Username" name="username"></p>
+                <p><input type="password" placeholder=" Password" name="password">
+                </p>
+                <br><br>
+                <input type="submit" class="btn btn-danger btn-lg" title="Login" value="Login" name="Login"/>
+            </form><br>
+            <a href="{% url 'signup' %}">Or if you don't have an account, <br><strong>click here</strong></a>
+        </div>
+    </div>
+</div>
+
+
+<div id="backgroundImage">
+    <div class="main">
+    </div>
+</div>
+
+{% if messages %}
+    <script>
+        {% for message in messages %}
+            alert("{{ message }}");
+        {% endfor %}
+    </script>
+{% endif %}
+
+
+</body>
+</html>

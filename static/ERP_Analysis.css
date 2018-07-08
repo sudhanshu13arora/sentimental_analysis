@@ -1,0 +1,70 @@
+.jumbotron {
+    font-family: sans-serif;
+    margin-top:0px;
+    margin-bottom:0px;
+    padding-top:0px;
+    padding-bottom:0px;
+
+}
+.pager{
+    padding-top:0px;
+    padding-bottom:0px;
+     margin-top:0px;
+    margin-bottom:0px;
+}
+
+.navbar {
+    font-family: sans-serif;
+    margin-bottom:50px;
+}
+.row-5{
+	padding-top:50px;
+	padding-bottom:50px;
+	padding-left:30px;
+	padding-right:30px;
+	
+}
+.bg-4 {
+    background-color: #2f2f2f;
+    color: #ffffff;
+	margin-top:50px;
+	padding-top: 50px;
+    padding-bottom: 30px;
+    box-shadow:2px 4px 8px 8px rgba(0,0,0,0.2);
+    transtion:0.3;
+    border-radius: 9px;
+}
+.page-header{
+    height:180px;
+	padding-top: 20px;
+	padding-bottom:0px;
+	color:#F5F5F5;
+}
+.bg-5{
+	margin:20px 20px 20px 20px;
+	box-shadow:2px 4px 8px 8px rgba(0,0,0,0.2);
+    transtion:0.3;
+    border-radius: 9px;
+}
+.bg-6{
+
+    box-shadow:2px 4px 8px 8px rgba(0,0,0,0.2);
+    transtion:0.3;
+    border-radius: 9px;
+}
+
+.well-lg
+{
+	padding: 0px;
+}
+.container-fluid{
+    margin-left: 0px;
+    margin-right: 0px;
+
+}
+.bg-9{
+    margin-bottom: 50px;
+    box-shadow:2px 4px 8px 8px rgba(0,0,0,0.2);
+    transtion:0.3;
+    border-radius: 9px;
+}

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Self</title>
+</head>
+<body>
+{% if comments %}<h2>Yes</h2>{% else %}<h2>No</h2>{% endif %}
+    <ul>
+        {% for c in comments %}
+            <li>{{ c.student.user.username }} : {{ c.review }}, {{ c.meal.meal }}, {{ c.sentiment }}</li>
+        {% endfor %}
+    </ul>
+
+</body>
+</html>
